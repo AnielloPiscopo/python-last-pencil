@@ -7,6 +7,11 @@ from custom_exceptions import ConstraintError,ConversionError
 
 
 def get_players_names() -> tuple[Player, ...]:
+    """
+    Returns the default tuple of players for the game.
+
+    Includes both human and bot players.
+    """
     return (
         Player("John", PlayerKind.HUMAN),
         Player("Jack", PlayerKind.BOT),
@@ -14,6 +19,11 @@ def get_players_names() -> tuple[Player, ...]:
 
 
 def get_pencils_num()->Optional[int]:
+    """
+    Asks the user for the initial number of pencils.
+
+    Keeps asking until a valid positive numeric value is provided.
+    """
     print("How many pencils would you like to use:")
 
     while True:
@@ -25,6 +35,11 @@ def get_pencils_num()->Optional[int]:
             print("The number of pencils should be numeric")
 
 def play_game(players:tuple[Player,...], pencils_num:int)->None:
+    """
+    Main game loop.
+
+    Alternates turns between players until no pencils remain.
+    """
     current_player: Player = get_first_player(players)
     turn_order:Iterator[Player] = cycle(players)
 
@@ -41,6 +56,9 @@ def play_game(players:tuple[Player,...], pencils_num:int)->None:
         print(current_player.name + "won!")
 
 def get_first_player(players:tuple[Player,...])->Player:
+    """
+    Asks the user to choose which player goes first.
+    """
     players_names:tuple[str,...] = tuple(p.name for p in players)
 
     print(get_str_by_iterable(players_names,
@@ -58,10 +76,19 @@ def get_first_player(players:tuple[Player,...])->Player:
                                    "Choose between "))
 
 def print_lines(pencils_num:int)->None:
+    """
+    Prints the current amount of pencils as vertical bars.
+    """
     print("|" * pencils_num)
     
 
 def play_turn(player:Player, pencils_num)->int:
+    """
+    Handles a single player's turn.
+
+    If the player is a bot, the move is calculated automatically.
+    If the player is human, input is requested and validated.
+    """
     print(player.name + "'s turn:")
 
     if player.kind == PlayerKind.BOT:
@@ -94,7 +121,11 @@ def play_turn(player:Player, pencils_num)->int:
     return pencils_gotten
 
 def get_bot_move(pencils_num: int) -> int:
-    # posizione perdente: 1, 5, 9, 13... → n % 4 == 1
+    """
+    Calculates the optimal bot move using modulo strategy.
+
+    Losing positions are: 1, 5, 9, 13, ...
+    """
     if pencils_num % 4 == 1:
         return 1
 
