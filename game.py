@@ -57,12 +57,7 @@ def get_first_player(players:tuple[Player,...])->Player:
                                    "Choose between "))
 
 def print_lines(pencils_num:int)->None:
-    lines_to_print:str = ""
-
-    for i in range(pencils_num):
-        lines_to_print+="|"
-
-    print(lines_to_print)
+    print("|" * pencils_num)
 
 def play_turn(player:Player, pencils_num)->int:
     print(player.name + "'s turn:")
@@ -102,11 +97,4 @@ def get_bot_move(pencils_num: int) -> int:
         return 1
 
     r = pencils_num % 4
-    if r == 0:
-        return 3
-    elif r == 3:
-        return 2
-    elif r == 2:
-        return 1
-
-    return 1
+    return 3 if r == 0 else r - 1
