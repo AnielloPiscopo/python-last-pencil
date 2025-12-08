@@ -58,6 +58,7 @@ def get_first_player(players:tuple[Player,...])->Player:
 
 def print_lines(pencils_num:int)->None:
     print("|" * pencils_num)
+    
 
 def play_turn(player:Player, pencils_num)->int:
     print(player.name + "'s turn:")
