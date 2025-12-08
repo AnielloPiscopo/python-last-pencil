@@ -50,9 +50,7 @@ def get_first_player(players:tuple[Player,...])->Player:
         try:
             chosen_name:str = get_el_in_iterable(players_names)
 
-            for p in players:
-                if p.name == chosen_name:
-                    return p
+            return next(p for p in players if p.name == chosen_name)
         except ConstraintError:
             print(get_str_by_iterable(players_names,
                                    "' and '", "'", "'",
