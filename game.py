@@ -6,11 +6,12 @@ from classes import *
 from custom_exceptions import ConstraintError,ConversionError
 
 
-def get_players_names() -> tuple[Player,...]:
+def get_players_names() -> tuple[Player, ...]:
     return (
-        Player("John" , "human"),
-        Player("Jack" , "bot"),
+        Player("John", PlayerKind.HUMAN),
+        Player("Jack", PlayerKind.BOT),
     )
+
 
 def get_pencils_num()->Optional[int]:
     print("How many pencils would you like to use:")
@@ -63,7 +64,7 @@ def print_lines(pencils_num:int)->None:
 def play_turn(player:Player, pencils_num)->int:
     print(player.name + "'s turn:")
 
-    if player.kind == "bot":
+    if player.kind == PlayerKind.BOT:
         move:int = get_bot_move(pencils_num)
         print(move)
         return move
